@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		setupCache()
+		
         let vkSdk = VKSdk.initialize(withAppId: "7014005")
         let tokenStorage = UserDefaults.standard
         let vkAuthService = VKAuthService(sdk: vkSdk)
@@ -32,6 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+	private func setupCache() {
+		URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
+		let cache = URLCache.shared
+		cache.memoryCapacity = 1024 * 1024 * 512 // 512 mb
+		cache.diskCapacity = 1024 * 1024 * 1024 * 2 // 2gb
+	}
+	
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.

@@ -9,6 +9,7 @@
 protocol StoresPhotos: class {
 	func photos(forAlbumId albumId: String, offset: Int, count: Int) -> [PhotoModel]?
 	func save(photos: [PhotoModel], for albumId: String)
+	func photos(forAlbumId albumId: String) -> [PhotoModel]
 }
 
 class PhotosMemoryDataStore: StoresPhotos {
@@ -27,6 +28,10 @@ class PhotosMemoryDataStore: StoresPhotos {
 			}
 		}
 		return nil
+	}
+	
+	func photos(forAlbumId albumId: String) -> [PhotoModel] {
+		return models[albumId] ?? []
 	}
 	
 	func save(photos: [PhotoModel], for albumId: String) {

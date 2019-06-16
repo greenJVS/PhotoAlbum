@@ -19,7 +19,6 @@ class VKAuthService: NSObject, AuthService {
     init(sdk: VKSdk?) {
         self.sdkInstance = sdk
         super.init()
-		
 		sdkInstance?.register(self)
     }
     

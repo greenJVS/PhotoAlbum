@@ -33,6 +33,6 @@ class AuthRouter: AuthRoutingLogic, AuthDataPassing {
 		controller.title = "Albums"
 		let nc = UINavigationController(rootViewController: controller)
 		nc.navigationBar.prefersLargeTitles = true
-		UIApplication.shared.keyWindow?.rootViewController = nc
+		viewController?.present(nc, animated: true, completion: nil)
     }
 }

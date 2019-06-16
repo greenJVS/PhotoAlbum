@@ -23,7 +23,7 @@ class VKPhotosService: FetchesPhotos {
 	func fetchPhotos(albumId: String, offset: Int, count: Int, completion: @escaping ([PhotoModel]?) -> Void) {
 		let request = APIRequest(method: .post, path: "photos.get")
 		request.queryItems = [
-//			URLQueryItem(name: "photo_sizes", value: "1"),
+			URLQueryItem(name: "photo_sizes", value: "1"),
 			URLQueryItem(name: "album_id", value: albumId),
 			URLQueryItem(name: "extended", value: "1"),
 			URLQueryItem(name: "offset", value: "\(offset)"),

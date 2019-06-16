@@ -8,6 +8,7 @@
 
 protocol AlbumsBusinessLogic {
     func fetchItems(request: Albums.ShowItems.Request)
+	func name(forAlbum albumId: UniqueIdentifier) -> String
 }
 
 class AlbumsInteractor: AlbumsBusinessLogic {
@@ -30,4 +31,8 @@ class AlbumsInteractor: AlbumsBusinessLogic {
 			self.presenter.presentItems(response: .init(result: result))
 		}
     }
+	
+	func name(forAlbum albumId: UniqueIdentifier) -> String {
+		return provider.name(forAlbum: albumId)
+	}
 }

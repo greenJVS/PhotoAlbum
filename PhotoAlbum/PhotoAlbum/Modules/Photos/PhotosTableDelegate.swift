@@ -20,7 +20,7 @@ class PhotosTableDelegate: NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		defer { tableView.deselectRow(at: indexPath, animated: true) }
 		if let viewModel = viewModels[safe: indexPath.row] {
-//			delegate?.openAlbum(viewModel.uid)
+			delegate?.openPhoto(photoId: viewModel.uid)
 		}
 	}
 	

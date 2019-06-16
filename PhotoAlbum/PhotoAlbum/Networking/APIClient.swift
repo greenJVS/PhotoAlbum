@@ -76,9 +76,11 @@ struct APIClient {
     
     private let session: URLSession
     private let baseURL: URL
-    
-    init(session: URLSession = .shared, baseURL: URL) {
+	private let cache: URLCache
+	
+	init(session: URLSession = .shared, cache: URLCache = .shared, baseURL: URL) {
         self.session = session
+		self.cache = cache
         self.baseURL = baseURL
     }
     
@@ -94,16 +96,28 @@ struct APIClient {
             completion(.failure(.invalidURL)); return
         }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
-        
+		
         request.headers?.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.field) }
         
         let task = session.dataTask(with: urlRequest) { (data, response, error) in
+			if error != nil {
+				if let cachedResponse = self.cache.cachedResponse(for: urlRequest),
+					let httpResponse = cachedResponse.response as? HTTPURLResponse {
+					return completion(.success(APIResponse<Data?>(statusCode: httpResponse.statusCode, body: cachedResponse.data)))
+				}
+			}
+			if let response = response, let data = data {
+				let cachedResponse = CachedURLResponse(response: response, data: data)
+				self.cache.storeCachedResponse(cachedResponse, for: urlRequest)
+			}
+
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(.requestFailed)); return
+                return completion(.failure(.requestFailed))
             }
+
             completion(.success(APIResponse<Data?>(statusCode: httpResponse.statusCode, body: data)))
         }
         task.resume()

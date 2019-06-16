@@ -32,9 +32,9 @@ class AuthBuilder: ModuleBuilder {
 		
 		let provider = AuthProvider(service: authService!, tokenStorage: tokenStorage!)
 		
+		let router = AuthRouter()
         let presenter = AuthPresenter()
 		let interactor = AuthInteractor(presenter: presenter, provider: provider)
-        let router = AuthRouter()
         let controller = AuthViewController(interactor: interactor, router: router)
         presenter.view = controller
         router.viewController = controller

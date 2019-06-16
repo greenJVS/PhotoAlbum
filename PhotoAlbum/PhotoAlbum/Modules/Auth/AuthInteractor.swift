@@ -33,19 +33,22 @@ class AuthInteractor: AuthBusinessLogic {
 		presenter.presentLoading()
         let isConnectionAvailable = reachibilityService.isConnectionAvailable()
         if isConnectionAvailable {
-            print("Connetion available.")
 			if provider.accessToken != nil {
 				provider.wakeUpSession { [weak self] isValidSession in
 					guard let self = self else { return }
 					if isValidSession {
 						self.presenter.presentLoggedIn()
+					} else {
+						self.presenter.presentLogin()
 					}
 				}
 			} else {
 				presenter.presentLogin()
 			}
         } else {
-            print("Connection unavailable.")
+			if provider.accessToken != nil {
+				presenter.presentLoggedIn()
+			}
         }
     }
     

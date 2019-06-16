@@ -79,6 +79,7 @@ extension AlbumsViewController: AlbumsDisplayLogic {
 
 extension AlbumsViewController: AlbumsViewControllerDelegate {
 	func openAlbum(_ albumId: UniqueIdentifier) {
-		router.routeToPhotos(in: albumId)
+		let albumName = interactor.name(forAlbum: albumId)
+		router.routeToPhotos(in: albumId, albumName: albumName)
 	}
 }

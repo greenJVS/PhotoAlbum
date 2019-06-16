@@ -8,6 +8,7 @@
 
 protocol ProvidesAlbums {
 	func getAlbums(completion: @escaping ([AlbumModel]?) -> Void)
+	func name(forAlbum albumId: UniqueIdentifier) -> String
 }
 
 struct AlbumProvider: ProvidesAlbums {
@@ -27,5 +28,9 @@ struct AlbumProvider: ProvidesAlbums {
 			self.dataStore.models = models
 			completion(models)
 		}
+	}
+	
+	func name(forAlbum albumId: UniqueIdentifier) -> String {
+		return dataStore.models?.first(where: { $0.uid == albumId })?.title ?? ""
 	}
 }

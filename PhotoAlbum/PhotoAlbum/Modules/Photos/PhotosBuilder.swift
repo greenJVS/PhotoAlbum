@@ -33,10 +33,18 @@ class PhotosBuilder: ModuleBuilder {
 		let service = VKPhotosService(token: token!)
 		let provider = PhotosProvider(service: service, dataStore: PhotosMemoryDataStore.shared)
 		
+		let router = PhotosRouter()
+		switch initialState! {
+		case .initial(id: let albumId):
+			router.set(albumId: "\(albumId)")
+		default:
+			break
+		}
 		let presenter = PhotosPresenter()
 		let interactor = PhotosInteractor(presenter: presenter, provider: provider)
-		let controller = PhotosViewController(interactor: interactor, initialState: initialState!)
+		let controller = PhotosViewController(interactor: interactor, router: router, initialState: initialState!)
 		presenter.view = controller
+		router.viewController = controller
 		
 		return controller
 	}

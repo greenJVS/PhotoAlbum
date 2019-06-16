@@ -36,9 +36,12 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.didLoad()
+		
     }
-    
+	
+	override func viewDidAppear(_ animated: Bool) {
+		interactor.didLoad()
+	}
 }
 
 extension AuthViewController: AuthViewDelegate {

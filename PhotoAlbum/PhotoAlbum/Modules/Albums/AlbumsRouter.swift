@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AlbumsRoutingLogic {
-	func routeToPhotos(in albumId: UniqueIdentifier)
+	func routeToPhotos(in albumId: UniqueIdentifier, albumName: String)
 }
 
 protocol AlbumsDataPassing {
@@ -25,12 +25,13 @@ class AlbumsRouter: AlbumsRoutingLogic & AlbumsDataPassing {
 		self.accessToken = token
 	}
 	
-	func routeToPhotos(in albumId: UniqueIdentifier) {
+	func routeToPhotos(in albumId: UniqueIdentifier, albumName: String) {
 		guard let token = accessToken else { return }
 		let controller = PhotosBuilder()
 			.set(token: token)
 			.set(initialState: .initial(id: albumId))
 			.build()
+		controller.title = albumName
 		viewController?.navigationController?.pushViewController(controller, animated: true)
 	}
 }

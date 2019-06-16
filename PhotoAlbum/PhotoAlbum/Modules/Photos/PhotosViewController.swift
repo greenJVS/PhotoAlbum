@@ -14,10 +14,12 @@ protocol PhotosDisplayLogic: class {
 
 protocol PhotosViewControllerDelegate: class {
 	func willShowLastPhoto()
+	func openPhoto(photoId: UniqueIdentifier)
 }
 
 class PhotosViewController: UIViewController {
 	let interactor: PhotosBusinessLogic
+	let router: PhotosRoutingLogic & PhotosDataPassing
 	private var state: Photos.ViewState {
 		didSet (prevState) {
 			switch (prevState, state) {
@@ -38,8 +40,11 @@ class PhotosViewController: UIViewController {
 	let tableDataSource = PhotosTableDataSource()
 	let tableHandler = PhotosTableDelegate()
 	
-	init(interactor: PhotosBusinessLogic, initialState: Photos.ViewState) {
+	init(interactor: PhotosBusinessLogic,
+		 router: PhotosRoutingLogic & PhotosDataPassing,
+		 initialState: Photos.ViewState) {
 		self.interactor = interactor
+		self.router = router
 		self.state = initialState
 		super.init(nibName: nil, bundle: nil)
 		tableHandler.delegate = self
@@ -55,6 +60,7 @@ class PhotosViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationItem.largeTitleDisplayMode = .never
 		state = .loading
 	}
 	
@@ -98,6 +104,10 @@ extension PhotosViewController: PhotosDisplayLogic {
 }
 
 extension PhotosViewController: PhotosViewControllerDelegate {
+	func openPhoto(photoId: UniqueIdentifier) {
+		router.openPhoto(photoId: photoId)
+	}
+	
 	func willShowLastPhoto() {
 		fetchMorePhotos()
 	}
