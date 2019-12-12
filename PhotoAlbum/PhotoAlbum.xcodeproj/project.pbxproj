@@ -496,6 +496,7 @@
 				847E8FEC22A9CEC400A8B35A /* Frameworks */,
 				847E8FED22A9CEC400A8B35A /* Resources */,
 				B8A54B3AFC87E3E9C31EEE86 /* [CP] Embed Pods Frameworks */,
+				CE4EDA2923A25ABA00ED8E07 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -644,6 +645,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoAlbum/Pods-PhotoAlbum-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CE4EDA2923A25ABA00ED8E07 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, install it using brew install swiftlint\"\n  exit 1\nfi\n";
 		};
 		DF0B921596668BE35CB73548 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
