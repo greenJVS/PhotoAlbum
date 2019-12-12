@@ -4,8 +4,7 @@
 
 osx_image: xcode11.2
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - pod install --project-directory=PhotoAlbum
+branches:
+  only: 
+    - master
 script: xcodebuild -workspace PhotoAlbum/PhotoAlbum.xcworkspace -scheme PhotoAlbum -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
