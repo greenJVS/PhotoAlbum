@@ -13,35 +13,37 @@ import VK_ios_sdk
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    var window: UIWindow?//
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		setupCache()
+		setupCache()//
 		
-        let vkSdk = VKSdk.initialize(withAppId: "7014005")
-        let tokenStorage = UserDefaults.standard
-        let vkAuthService = VKAuthService(sdk: vkSdk)
+        let vkSdk = VKSdk.initialize(withAppId: "7014005")//
+        let tokenStorage = UserDefaults.standard//
+        let vkAuthService = VKAuthService(sdk: vkSdk)//
         
-        let controller = AuthBuilder()
-            .set(authService: vkAuthService)
-            .set(tokenStorage: tokenStorage)
-            .build()
-        vkSdk?.uiDelegate = controller
+        let controller = AuthBuilder()//
+            .set(authService: vkAuthService)//
+            .set(tokenStorage: tokenStorage)//
+            .build()//
+        vkSdk?.uiDelegate = controller//
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = controller
-        window?.makeKeyAndVisible()
+        window = UIWindow(frame: UIScreen.main.bounds)//
+        window?.rootViewController = controller//
+        window?.makeKeyAndVisible()//
         return true
     }
 
 	private func setupCache() {
 		URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
 		let cache = URLCache.shared
-		cache.memoryCapacity = 1024 * 1024 * 512 // 512 mb
-		cache.diskCapacity = 1024 * 1024 * 1024 * 2 // 2gb
+		cache.memoryCapacity = 1024 * 1024 * 512 // 512 mb/
+		cache.diskCapacity = 1024 * 1024 * 1024 * 2 // 2gb/
 	}
 	
     func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:./
+        // Saves changes in the application's managed object context before the application terminates./
         self.saveContext()
     }
 
@@ -52,23 +54,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var persistentContainer: NSPersistentContainer = {
         /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
+         The persistent container for the application. This implementation///
+         creates and returns a container, having loaded the store for the/
+         application to it. This property is optional since there are legitimate/
+         error conditions that could cause the creation of the store to fail./
         */
         let container = NSPersistentContainer(name: "PhotoAlbum")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
+                // Replace this implementation with code to handle the error appropriately./
                  
                 /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
+                 Typical reasons for an error here include:/
+                 * The parent directory does not exist, cannot be created, or disallows writing./
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked./
+                 * The device is out of space./
+                 * The store could not be migrated to the current model version./
+                 Check the error message to determine what the actual problem was./
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -84,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
+                // Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately. haha/
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
