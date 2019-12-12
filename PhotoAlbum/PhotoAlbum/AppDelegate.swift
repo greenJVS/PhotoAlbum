@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately.
+                // Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately. Replace this implementation with code to handle the error appropriately. haha
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
