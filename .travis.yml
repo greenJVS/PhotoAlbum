@@ -4,7 +4,4 @@
 
 osx_image: xcode11.2
 language: objective-c
-branches:
-  only: 
-    - master
 script: xcodebuild -workspace PhotoAlbum/PhotoAlbum.xcworkspace -scheme PhotoAlbum -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
